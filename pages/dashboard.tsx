@@ -8,9 +8,10 @@ import {alchemy} from "../pages/api/nft"
 import styles from "../styles/dashboard.module.css"
 
 export default function Dashboard(){
+    const router=useRouter();
     const [balance,setBalance]=useState<string>();
     const [nftData, setNftData]=useState<any>();
-    const router=useRouter();
+    const [address,setAddress]=useState<string>(router.query.address!.toString());
     useEffect(() => {
         window.ethereum.request({
             method:'eth_getBalance', 
@@ -19,7 +20,7 @@ export default function Dashboard(){
             console.log("here")
             setBalance(ethers.utils.formatEther(balance))
         })
-        alchemy.nft.getNftsForOwner("0xF5FFF32CF83A1A614e15F25Ce55B0c0A6b5F8F2c").then((res)=>{
+        alchemy.nft.getNftsForOwner(address).then((res)=>{
             setNftData(res)
         })
     }, [])
@@ -37,11 +38,14 @@ export default function Dashboard(){
         <section>
             <h2>NFTs</h2>
             <div className={styles.nftlist}>
-                {nftData?nftData.ownedNfts.map((nft:any, index:number)=>{
+                {nftData?nftData.ownedNfts.length?nftData.ownedNfts.map((nft:any, index:number)=>{
                     return <Nft key={index} {...nft}/>
                 }):
                 <div>
                     <h2>No Nft Found</h2>
+                </div>:
+                <div>
+                    <h2>Loding Nfts</h2>
                 </div>
                 }
             </div>
