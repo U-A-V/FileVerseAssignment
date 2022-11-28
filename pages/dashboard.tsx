@@ -15,7 +15,7 @@ export default function Dashboard(){
     useEffect(() => {
         window.ethereum.request({
             method:'eth_getBalance', 
-            params: [router.query.address, 'latest']
+            params: [address, 'latest']
         }).then((balance:string) => {
             console.log("here")
             setBalance(ethers.utils.formatEther(balance))
@@ -23,7 +23,7 @@ export default function Dashboard(){
         alchemy.nft.getNftsForOwner(address).then((res)=>{
             setNftData(res)
         })
-    }, [])
+    })
     
 
     return(
