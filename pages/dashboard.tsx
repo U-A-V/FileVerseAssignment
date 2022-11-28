@@ -9,9 +9,10 @@ import styles from "../styles/dashboard.module.css"
 
 export default function Dashboard(){
     const router=useRouter();
+    const addr=router.query.address as string
     const [balance,setBalance]=useState<string>();
     const [nftData, setNftData]=useState<any>();
-    const [address,setAddress]=useState<string>(router.query.address!.toString());
+    const [address,setAddress]=useState<string>(addr);
     useEffect(() => {
         window.ethereum.request({
             method:'eth_getBalance', 
