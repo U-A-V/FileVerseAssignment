@@ -1,0 +1,17 @@
+.container {
+    padding: 0 2rem;
+  }
+  
+  .main {
+    min-height: 100vh;
+    padding: 2rem 0;
+
+  }
+
+.nftlist{
+    padding: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+}
